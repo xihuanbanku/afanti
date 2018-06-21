@@ -53,8 +53,14 @@
             //要做的事情
             if(storeCount ==1) {
                 localStorage.setItem("storeCount",0);
+                var div = document.createElement('div');
+                div.appendChild(document.createTextNode("已停止"));
+                document.body.appendChild(div);
             } else {
                 localStorage.setItem("storeCount",1);
+                div = document.createElement('div');
+                div.appendChild(document.createTextNode("监控中。。。" ));
+                document.body.appendChild(div);
             }
         }
     };
