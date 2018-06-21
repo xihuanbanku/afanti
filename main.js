@@ -21,7 +21,12 @@
         console.error("来题了");
         //播放音乐
         window.open("http://dx.sc.chinaz.com/Files/DownLoad/sound1/201402/4082.mp3");
+        localStorage.setItem("storeCount",0);
     }
+    //网页上追加当前状态
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(storeCount ==1 ? "监控中。。。" : "已停止"));
+    document.body.appendChild(div);
     //网页上追加button
     var btn1=document.createElement("button");
     var t1=document.createTextNode("开始");
