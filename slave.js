@@ -4,7 +4,8 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       lianghaikun@sina.com
-// @match        *://www.zhixue.com/crowdsourcednew/dist*
+// @match        *://www.zhixue.com/crowdsourcednew/dist/*
+// @exclude      http://www.zhixue.com/crowdsourcednew/dist/assets/ckeditor4.1_math/plugins/ckeditor_wiris/core/editor.html?lang=zh-cn&dir=ltr
 // @grant        none
 // ==/UserScript==
 
