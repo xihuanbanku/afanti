@@ -10,7 +10,12 @@
 // @require    http://code.jquery.com/jquery-1.11.0.min.js
 // ==/UserScript==
 
-//http://www.zhixue.com/crowdsourcednew/api/machining/getReadyCount?_=1529543629746&phaseCode=04&subjectCode=02&taskTypeCode=Proofread&isLimitApply=false
+// 查找数量
+// http://www.zhixue.com/crowdsourcednew/api/machining/getReadyCount?_=1529543629746&phaseCode=04&subjectCode=02&taskTypeCode=Proofread&isLimitApply=false
+// 打开试题
+// http://www.zhixue.com/crowdsourcednew/dist/#/proofread/show/9cd5dbee-2e5d-402a-954f-37b81576a358_4b02bb1d-378d-4043-ab90-a8ee2b345afd_Proofread_0
+// 获取试题
+// http://www.zhixue.com/crowdsourcednew/api/machining/applyTask?_=1535079101324&phaseCode=04&subjectCode=02&taskTypeCode=Proofread&isLimitApply=false&processTypeCode=0
 (function() {
     'use strict';
 
@@ -18,7 +23,9 @@
     $("body").append("<div id='course1'>html1</div>");
     $("body").append("<div id='course2'>html2</div>");
     $("body").append("<div id='course3'>html3</div>");
+    $("body").append("<div id='courseApply1'>courseApply1</div>");
     $("body").append("<div id='monitorStatus'>status</div>");
+    $("body").append("<audio id=\"media\" controls src=\"http://yss.yisell.com/yisell/ybys2018050819052088/sound/yisell_sound_201403191523425893_88366.mp3\"></audio>");
 
     //启动定时任务, 3秒一次
     setInterval(function(){
@@ -48,13 +55,27 @@
     function display2Console(course, data) {
         var storeCount = localStorage.getItem("storeCount");
         var currentCount = data.result;
-        console.info(new Date()+data.result);
-        $("#course"+course).html(new Date()+course+"["+data.result+"]");
-        if(currentCount != 0 && storeCount != 0) {
+        if(currentCount > 0) {
+            console.info(new Date()+"["+course+"]"+currentCount);
+        }
+        $("#course"+course).html(new Date()+course+"["+currentCount+"]");
+        if(course =="1" && currentCount != 0 && storeCount != 0) {
             localStorage.setItem("storeCount",0);
             console.info("["+course+"]来题了");
-            //播放音乐
-            window.open("http://yss.yisell.com/yisell/ybys2018050819052088/sound/yisell_sound_201403191523425893_88366.mp3");
+            // 获取任务
+            $.getJSON(
+                "http://www.zhixue.com/crowdsourcednew/api/machining/applyTask?_=1535091176662&phaseCode=04&subjectCode=02&taskTypeCode=Proofread&isLimitApply=false&processTypeCode=0",
+                function(data) {
+                    if(data.errorCode == 0 && data.result != undefined) {
+                        $("#courseApply"+course).html(new Date()+course+"["+data.result.id+"]");
+                        // 打开试题
+                        // http://www.zhixue.com/crowdsourcednew/dist/#/proofread/show/9cd5dbee-2e5d-402a-954f-37b81576a358_4b02bb1d-378d-4043-ab90-a8ee2b345afd_Proofread_0
+                        window.open("http://www.zhixue.com/crowdsourcednew/dist/#/proofread/show/"+data.result.id);
+                        //播放音乐
+                        $("#media")[0].play()
+                    }
+                }
+            );
         }
         $("#monitorStatus").html(new Date()+(storeCount ==1 ? "监控中。。。" : "已停止"));
     }
