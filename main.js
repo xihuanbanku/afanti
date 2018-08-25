@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         阿凡题
 // @namespace    http://tampermonkey.net/
@@ -24,8 +23,8 @@
     $("body").append("<div id='course2'>html2</div>");
     $("body").append("<div id='course3'>html3</div>");
     $("body").append("<div id='courseApply1'>courseApply1</div>");
-    $("body").append("<div id='monitorStatus'>status</div>");
-    $("body").append("<audio id=\"media\" controls src=\"http://yss.yisell.com/yisell/ybys2018050819052088/sound/yisell_sound_201403191523425893_88366.mp3\"></audio>");
+    $("body").append("<div id='monitorStatus'>monitorStatus</div>");
+    $("body").append("<audio id=\"media\" controls src=\"http://gddx.sc.chinaz.com//Files/DownLoad/sound1/201403/4204.mp3\"></audio>");
 
     //启动定时任务, 3秒一次
     setInterval(function(){
@@ -60,7 +59,6 @@
         }
         $("#course"+course).html(new Date()+course+"["+currentCount+"]");
         if(course =="1" && currentCount != 0 && storeCount != 0) {
-            localStorage.setItem("storeCount",0);
             console.info("["+course+"]来题了");
             // 获取任务
             $.getJSON(
@@ -76,8 +74,10 @@
                     }
                 }
             );
+            // 拿到题目以后 是否继续监控, 统一由空格控制
+            // localStorage.setItem("storeCount",0);
+            // $("#monitorStatus").html(new Date()+(storeCount ==1 ? "监控中。。。" : "已停止"));
         }
-        $("#monitorStatus").html(new Date()+(storeCount ==1 ? "监控中。。。" : "已停止"));
     }
 
     //存入 参数： 1.调用的值 2.所要存入的数据
