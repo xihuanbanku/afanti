@@ -24,7 +24,7 @@
     $("body").append("<div id='course3'>html3</div>");
     $("body").append("<div id='courseApply1'>courseApply1</div>");
     $("body").append("<div id='monitorStatus'>monitorStatus</div>");
-    $("body").append("<audio id=\"media\" controls src=\"http://gddx.sc.chinaz.com//Files/DownLoad/sound1/201403/4204.mp3\"></audio>");
+    $("body").append("<audio id=\"media\" controls src=\"http://ydown.smzy.com//yinpin/2014-12/smzy_2014121105.mp3\"></audio>");
 
     //启动定时任务, 3秒一次
     setInterval(function(){
